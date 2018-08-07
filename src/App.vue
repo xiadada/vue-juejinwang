@@ -44,11 +44,12 @@ html,body{
   background: #fff;
   border-bottom: 1px solid #f1f1f1;
   color: #909090;
-  height: 80px;
-  line-height: 80px;
+  height: 60px;
+  line-height: 60px;
   z-index: 250; 
 }
 .content-container{
-
+  margin: 80px auto 0;
+  max-width: 960px;
 }
 </style>

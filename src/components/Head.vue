@@ -107,10 +107,10 @@
 .juejin-head{
 	max-width: 960px;
     margin: auto;
-    height: 80px;
+    height: 60px;
     .head-left{
     	float: left;
-    	height: 80px;
+    	height: 60px;
     	 li{
 	    	float: left;
 	    	margin-right: 42px;
@@ -131,7 +131,7 @@
     }
     .head-right{
     	float: right;
-    	height: 80px;
+    	height: 60px;
     	li{
     		float: left;
     		color: #007fff;
@@ -180,9 +180,6 @@
     			.login{
     				display: inline-block;
     				padding-left: 14px;
-    				&:hover{
-    					color: #0371df;
-    				}
     			}
     			.split-point{
     				display: inline-block;
