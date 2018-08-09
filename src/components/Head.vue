@@ -11,7 +11,6 @@
 			<li v-for="(headItem,index) in headList" :class="headItem.class" @click="changeColor(headItem)" :key="index">
 				<router-link :to="{name: headItem.toLink}" :class="{active: isActive == headItem.enName}">{{ headItem.cnName}}</router-link>
 			</li>
-
 		</ul>
 		
 		<ul class="head-right clearfix">
@@ -42,13 +41,8 @@
 				<span class="split-point"></span>
 				<span class="sign">注册</span>
 			</li>
-			
-			
 		</ul>
-		
-
 	</div>
-	
 </template>
 <script>
 	export default{

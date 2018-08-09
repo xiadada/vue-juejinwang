@@ -1,5 +1,5 @@
 <template>
-	<div>111</div>
+	<div>推荐内容</div>
 </template>
 <script>
 
