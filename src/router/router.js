@@ -5,6 +5,7 @@ import BoilingPoint from '../components/BoilingPoint'
 import LittleBrochure from '../components/LittleBrochure'
 import OpenSource from '../components/OpenSource'
 import Activity from '../components/Activity'
+import JiaGou from '../components/HotTags/JiaGou'
 
 //二级路由
 import Android from '../components/Home/HomeLeft/Android'
@@ -83,6 +84,10 @@ const routes = [
 	},{
 		path: '/',
 		redirect: '/Home/home'
+	},{
+		path: '/jiaGou',
+		name: 'jiaGouLink',
+		component: JiaGou
 	}
 ]
 

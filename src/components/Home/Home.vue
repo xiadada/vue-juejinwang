@@ -24,13 +24,10 @@
 	float: left;
 	width: 700px;
 	background: #fff;
-  	height: 1000px;
 }
 .home-right-container{
 	float: left;
 	width: 240px;
-	background-color: #fff;
-	height: 1000px;
 	margin-left: 20px;
 }
 	

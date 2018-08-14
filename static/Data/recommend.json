@@ -40,8 +40,25 @@
 			"recommendTime": "5月前",
 			"readCount": "45",
 			"img": ""
-		},
-	]},
+		}],
+		"recommendHotTags": [{
+			"name": "架构"
+		},{
+			"name": "开源"
+		},{
+			"name": "算法"
+		},{
+			"name": "GitHub"
+		},{
+			"name": "面试"
+		},{
+			"name": "代码规范"
+		},{
+			"name": "产品"
+		},{
+			"name": "掘金翻译计划"
+		}]
+	},
 	"meta": {
 		"status": 200,
 		"message": "ok"

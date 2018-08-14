@@ -1,0 +1,28 @@
+{
+	"data": {
+		"frontEndHotTags": [{
+			"name": "JavaScript"
+		},{
+			"name": "CSS"
+		},{
+			"name": "React.js"
+		},{
+			"name": "Vue.js"
+		},{
+			"name": "ECMAScript 6"
+		},{
+			"name": "Webpack"
+		},{
+			"name": "HTML"
+		},{
+			"name": "前端框架"
+		},{
+			"name": "微信小程序"
+		}]
+	},
+	"meta": {
+		"status": 200,
+		"message": "ok"
+	},
+	"page": {}
+}
