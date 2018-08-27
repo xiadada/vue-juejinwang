@@ -15,7 +15,7 @@
 		
 		<ul class="head-right clearfix">
 			<li class="input-container">
-				<input type="text" placeholder="搜索掘金" class="search-input" @focus="searchFocus" @blur="searchBlur" :class="{active: isFocus}">
+				<input type="text" placeholder="搜索掘金" class="search-input" @focus="searchFocus('searchJueJing')" @blur="searchBlur('searchJueJing')" :class="{active: isFocus.searchJueJing}">
 				<div class="search-icon">
 					<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 					    <!-- Generator: sketchtool 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
@@ -37,14 +37,52 @@
 				<span class="write-article-text">写文章</span>
 			</li>
 			<li class="login-and-sign">
-				<span class="login">登录</span>
+				<span class="login" @click="openDialog('isShowLoginPublish')">登录</span>
+				<dialog-app :is-show="status.isShowPublish.isShowLoginPublish" :top-distance="status.topNum" @on-close="closeDialog('isShowLoginPublish')">
+			    	<h1 class="head-title" slot="header">登录</h1>
+			    	<div class="dialog-publish-main" slot="main" >
+			    		<div class="login-hold">
+			    			<input type="text" name="" placeholder="请输入手机号或邮箱" class="login-account" @focus="searchFocus('loginAccount')" @blur="searchBlur('loginAccount')" :class="{active: isFocus.loginAccount}">
+			    		</div>
+			    		<div class="login-hold">
+			    			<input type="password" name="" placeholder="请输入密码" class="login-password" @focus="searchFocus('loginPassword')" @blur="searchBlur('loginPassword')" :class="{active: isFocus.loginPassword}">
+			    		</div>
+			    		<button class="login-btn">登录</button>
+			    		<div class="no-account clearfix">
+			    			<div class="login-link">
+			    				<span class="no-account-text">没有账号？</span>
+			    				<span class="register">注册</span>
+			    			</div>
+			    			<a href="https://juejin.im/reset-password" class="forget-password">忘记密码</a>
+			    		</div>
+			    	</div>
+			    </dialog-app>
 				<span class="split-point"></span>
-				<span class="sign">注册</span>
+				<span class="sign" @click="openDialog('isShowRegisterPublish')">注册</span>
+				<dialog-app :is-show="status.isShowPublish.isShowRegisterPublish" :top-distance="status.topNum" @on-close="closeDialog('isShowRegisterPublish')">
+			    	<h1 class="head-title" slot="header">注册</h1>
+			    	<div class="dialog-publish-main" slot="main" >
+			    		<div class="login-hold">
+			    			<input type="text" name="" placeholder="请输入用户名" class="login-account" @focus="searchFocus('loginAccount')" @blur="searchBlur('loginAccount')" :class="{active: isFocus.loginAccount}">
+			    		</div>
+			    		<div class="login-hold">
+			    			<input type="text" name="" placeholder="请输入手机号" class="login-telephone" @focus="searchFocus('loginTelephone')" @blur="searchBlur('loginTelephone')" :class="{active: isFocus.loginTelephone}">
+			    		</div>
+			    		<div class="login-hold">
+			    			<input type="password" name="" placeholder="请输入密码" class="login-password" @focus="searchFocus('loginPassword')" @blur="searchBlur('loginPassword')" :class="{active: isFocus.loginPassword}">
+			    		</div>
+			    		<button class="login-btn">注册</button>
+			    		<div class="no-account">
+			    			<span class="had-account-login">已有账号登录</span>
+			    		</div>
+			    	</div>
+			    </dialog-app>
 			</li>
 		</ul>
 	</div>
 </template>
 <script>
+	import Dialog from './Dialog'
 	export default{
 		data(){
 			return {
@@ -78,22 +116,46 @@
 				],
 				isActive: 'home',
 				searchIconColor: '#C3CCD5',
-				isFocus: false
+				isFocus: {
+					searchJueJing: false,
+					loginAccount: false,
+					loginPassword: false,
+					loginTelephone: false
+				},
+				status: {
+					isShowPublish: {
+						isShowLoginPublish: false,
+						isShowRegisterPublish: false
+					}
+				}
 			}
+		},
+		components: {
+			'dialog-app': Dialog
 		},
 		methods: {
 			changeColor(headItem){
 				this.isActive = headItem.enName;
 			},
-			searchFocus(){
-				this.searchIconColor = '#007fff';
-				this.isFocus = true;
+			searchFocus(param){
+				if(param == 'searchJueJing'){
+					this.searchIconColor = '#007fff';
+				}
+				this.isFocus[param] = true;
 			},
-			searchBlur(){
-				this.searchIconColor = '#C3CCD5';
-				this.isFocus = false;
-			}
-			
+			searchBlur(param){
+				if(param == 'searchJueJing'){
+					this.searchIconColor = '#C3CCD5';
+				}
+				this.isFocus[param] = false;
+			},
+			openDialog(param){
+		      this.status.isShowPublish[param] = true;
+		    },
+		    closeDialog(param){
+		      this.status.isShowPublish[param] = false;
+		      //把绑定的弹窗数组，设为false即可关闭弹窗
+		    }
 		}
 	}
 </script>
@@ -189,6 +251,64 @@
     			}
     		}
     	}
+    	.head-title{
+			font-size: 20px;
+			font-weight: bold;
+		}
+		.dialog-publish-main{
+			.login-hold{
+				height: 41px;
+				line-height: 41px;
+				margin-bottom: 8px;
+				.login-account,.login-password,.login-telephone{
+					padding: 12px 10px;
+				    width: 100%;
+				    border: 1px solid #e9e9e9;
+				    border-radius: 2px;
+				    outline: none;
+				    &.active{
+						border: 1px solid #007fff;
+    					background-color: #fff;
+				    }
+				}
+			}
+			.login-btn{
+				width: 100%;
+			    height: 40px;
+			    color: #fff;
+			    background-color: #007fff;
+			    border: none;
+			    border-radius: 2px;
+			    outline: none;
+			    box-sizing: border-box;
+			    cursor: pointer;
+			}
+			.no-account{
+				margin: 5px 0 0;
+    			font-size: 14px;
+    			line-height: 19px;
+    			text-align: center;
+    			.login-link{
+    				float: left;
+    				.no-account-text{
+	    				color: #8b9196;
+	    			}
+	    			.register{
+	    				color: #007fff;
+	    				cursor: pointer; 
+	    			}
+    			}
+    			.forget-password{
+    				float: right;
+    				color: #007fff;
+    				cursor: pointer; 
+    			}
+    			.had-account-login{
+    				color: #007fff;
+	    			cursor: pointer;
+    			}
+			}
+		}
 
     }
 }

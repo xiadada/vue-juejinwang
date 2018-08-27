@@ -5,7 +5,7 @@
 			<a class="check-all" href="#">查看全部</a>
 		</div>
 		<div class="hot-tag">
-			<router-link v-for="(hotTagsItem,hotTagsIndex) in getHotTags" class="hot-tag-list" tag="a" :to="{name: 'jiaGouLink'}" target="_blank">{{ hotTagsItem.name }}</router-link>
+			<router-link v-for="(hotTagsItem,hotTagsIndex) in getHotTags" class="hot-tag-list" tag="a" :to="{name: 'jiaGouLink'}" target="_blank" :key="hotTagsIndex">{{ hotTagsItem.name }}</router-link>
 		</div>
 	</div>
 </template>
