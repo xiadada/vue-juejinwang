@@ -1,7 +1,13 @@
 <template>
   <div id="app" class="clearfix">
+    <!-- 这个容器相当于body，可以用来装页面弹窗组件等 -->
+    <div class="global-component-box">
+      
+    </div>
     <div class="head-container">
-      <app-head></app-head>
+        <div class="head-fixed-container">
+          <app-head></app-head>
+        </div>
     </div>
     <div class="content-container">
       <router-view></router-view>
@@ -36,19 +42,23 @@ html,body{
   background-color: #f4f5f5;
 }
 .head-container{
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   right: 0;
-  background: #fff;
   border-bottom: 1px solid #f1f1f1;
   color: #909090;
   height: 60px;
   line-height: 60px;
-  z-index: 250; 
+  .head-fixed-container{
+    position: fixed;
+    width: 100%;
+    background: #fff;
+    z-index: 250;
+  }
 }
 .content-container{
-  margin: 80px auto 0;
+  margin: 20px auto 0;
   max-width: 960px;
 }
 </style>

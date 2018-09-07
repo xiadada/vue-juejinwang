@@ -84,7 +84,8 @@ export default {
 }
 //最外层设置position定位
 .dialog{
-	position: relative;
+	// position: relative;
+	position: fixed;
 	display: inline-block;
 	color: #2e2c2d;
 	font-size: 16px;

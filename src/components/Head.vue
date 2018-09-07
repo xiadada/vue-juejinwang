@@ -32,13 +32,26 @@
 					</svg>
 				</div>
 			</li>
-			<li class="write-article">
+			<li class="write-article" @click="openDropDialog('writeArticle')" ref="writeArticle">
 				<img src="../assets/write.png">
 				<span class="write-article-text">写文章</span>
+				<drop-dialog :is-show="getDropDialogOptions['writeArticle'].isShow" :top-distance="getDropDialogOptions['writeArticle'].topDistance" :left-distance="getDropDialogOptions['writeArticle'].leftDistance" ref="writeArticle-dropDialog">
+			      	<div class="content" slot="drop-dialog-content">
+			        	<div class="write-article-content" slot="drop-dialog-content">
+			        		<h1 class="write-article-title">来掘金写文章，您将有机会</h1>
+			        		<ul class="chance-list">
+			            		<li class="chance-item">与超过 300 万开发者分享您的经验和观点</li>
+			            		<li class="chance-item">被编辑推荐，获得更多曝光和关注</li>
+			            		<li class="chance-item">加入专栏作者群，结识众多优秀开发者</li>
+			          		</ul>
+			          		<button class="start-write">开始写文章</button>
+			      		</div>
+			      	</div>
+			    </drop-dialog>
 			</li>
 			<li class="login-and-sign">
 				<span class="login" @click="openDialog('isShowLoginPublish')">登录</span>
-				<dialog-app :is-show="status.isShowPublish.isShowLoginPublish" :top-distance="status.topNum" @on-close="closeDialog('isShowLoginPublish')">
+				<dialog-app :is-show="options.isShowDialog.isShowLoginPublish" :top-distance="options.topNum" @on-close="closeDialog('isShowLoginPublish')">
 			    	<h1 class="head-title" slot="header">登录</h1>
 			    	<div class="dialog-publish-main" slot="main" >
 			    		<div class="login-hold">
@@ -59,7 +72,7 @@
 			    </dialog-app>
 				<span class="split-point"></span>
 				<span class="sign" @click="openDialog('isShowRegisterPublish')">注册</span>
-				<dialog-app :is-show="status.isShowPublish.isShowRegisterPublish" :top-distance="status.topNum" @on-close="closeDialog('isShowRegisterPublish')">
+				<dialog-app :is-show="options.isShowDialog.isShowRegisterPublish" :top-distance="options.topNum" @on-close="closeDialog('isShowRegisterPublish')">
 			    	<h1 class="head-title" slot="header">注册</h1>
 			    	<div class="dialog-publish-main" slot="main" >
 			    		<div class="login-hold">
@@ -83,6 +96,7 @@
 </template>
 <script>
 	import Dialog from './Dialog'
+	import DropDialog from './DropDialog'
 	export default{
 		data(){
 			return {
@@ -122,16 +136,37 @@
 					loginPassword: false,
 					loginTelephone: false
 				},
-				status: {
-					isShowPublish: {
+				options: {
+					isShowDialog: {
 						isShowLoginPublish: false,
-						isShowRegisterPublish: false
-					}
+						isShowRegisterPublish: false,
+					},
+					// isShowDropDialog: {
+					// 	//写文章下拉框的参数
+					// 	writeArticle: {
+					// 		isShow: false,
+					// 		topDistance: null,
+					// 		leftDistance: null
+					// 	}
+
+					// }
 				}
 			}
 		},
 		components: {
-			'dialog-app': Dialog
+			'dialog-app': Dialog,
+			'drop-dialog': DropDialog
+		},
+		computed: {
+		    getDropDialogOptions:{
+		    	//拿到下拉框的参数
+		    	get(){
+		    	  return this.$store.getters.getDropDialogOptions;
+		    	},
+		    	set(){
+
+		    	}
+		    }
 		},
 		methods: {
 			changeColor(headItem){
@@ -150,12 +185,20 @@
 				this.isFocus[param] = false;
 			},
 			openDialog(param){
-		      this.status.isShowPublish[param] = true;
+		      this.options.isShowDialog[param] = true;
 		    },
 		    closeDialog(param){
-		      this.status.isShowPublish[param] = false;
+		      this.options.isShowDialog[param] = false;
 		      //把绑定的弹窗数组，设为false即可关闭弹窗
+		    },
+		     //利用vuex这样可以多个页面使用一个方法
+		    openDropDialog(param){
+		      var that = this;
+		      this.$store.commit('openDropDialogs',{param: param,that: that})
 		    }
+		},
+		mounted(){
+			//编译好的Html挂载到页面完成后执行的事件钩子，该钩子函数执行时所有的DOM挂载和渲染都已完成，此钩子函数中一般会做一些ajax请求获取数据进行数据初始化
 		}
 	}
 </script>
@@ -217,6 +260,7 @@
     			}
     		}
     		&.write-article{
+    			// position: relative;
     			img{
     				position: relative;
     				top: 5px;
