@@ -32,21 +32,19 @@
 					</svg>
 				</div>
 			</li>
-			<li class="write-article" @click="openDropDialog('writeArticle')" ref="writeArticle">
+			<li class="write-article" @click="openDropDialog('writeArticle')" ref="writeArticle" id="writeArticle">
 				<img src="../assets/write.png">
 				<span class="write-article-text">写文章</span>
-				<drop-dialog :is-show="getDropDialogOptions['writeArticle'].isShow" :top-distance="getDropDialogOptions['writeArticle'].topDistance" :left-distance="getDropDialogOptions['writeArticle'].leftDistance" ref="writeArticle-dropDialog">
-			      	<div class="content" slot="drop-dialog-content">
-			        	<div class="write-article-content" slot="drop-dialog-content">
-			        		<h1 class="write-article-title">来掘金写文章，您将有机会</h1>
-			        		<ul class="chance-list">
-			            		<li class="chance-item">与超过 300 万开发者分享您的经验和观点</li>
-			            		<li class="chance-item">被编辑推荐，获得更多曝光和关注</li>
-			            		<li class="chance-item">加入专栏作者群，结识众多优秀开发者</li>
-			          		</ul>
-			          		<button class="start-write">开始写文章</button>
-			      		</div>
-			      	</div>
+				<drop-dialog :is-show="getDropDialogOptions['writeArticle'].isShow" :top-distance="getDropDialogOptions['writeArticle'].topDistance" :left-distance="getDropDialogOptions['writeArticle'].leftDistance" ref="writeArticle-dropDialog" :id="getDropDialogOptions['writeArticle'].id">
+		        	<div class="write-article-content" slot="drop-dialog-content">
+		        		<h1 class="write-article-title">来掘金写文章，您将有机会</h1>
+		        		<ul class="chance-list">
+		            		<li class="chance-item">与超过 300 万开发者分享您的经验和观点</li>
+		            		<li class="chance-item">被编辑推荐，获得更多曝光和关注</li>
+		            		<li class="chance-item">加入专栏作者群，结识众多优秀开发者</li>
+		          		</ul>
+		          		<button class="start-write">开始写文章</button>
+		      		</div>
 			    </drop-dialog>
 			</li>
 			<li class="login-and-sign">
@@ -231,7 +229,7 @@
     .head-right{
     	float: right;
     	height: 60px;
-    	li{
+    	>li{
     		float: left;
     		color: #007fff;
     		cursor: pointer;
@@ -274,6 +272,40 @@
     				&:hover{
     					color: #0371df;
     				}
+    			}
+    			.write-article-content{
+    				.write-article-title{
+    					font-size: 18px;
+					    line-height: 1;
+					    font-weight: bold;
+					    color: #000;
+					    text-align: center;
+					    margin-bottom: 20px;
+    				}
+
+    			}
+    			.chance-list{
+    				margin-left: 20px;
+    				.chance-item{
+    					list-style: disc;
+    					color: #909090;
+    					font-size: 14px;
+    					line-height: 17px;
+    					margin-bottom: 10px;
+    				}
+    			}
+    			.start-write{
+    				display: block;
+				    margin: 20px auto 0;
+				    background-color: #83c73a;
+				    font-size: 14px;
+				    padding: 10px 40px;
+				    color: #fff;
+				    border-radius: 2px;
+				    border: none;
+				    outline: none;
+				    transition: background-color .3s,color .3s;
+				    cursor: pointer;
     			}
     		}
     		&.login-and-sign{
